@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -49,6 +49,13 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
+      {loading && <ActivityIndicator />}
+      {error && (
+        <>
+          <Text>Error fetching books</Text>
+          <Text>{error.message}</Text>
+        </>
+      )}
       <Text style={styles.title}>Hello Devs</Text>
     </View>
   );
