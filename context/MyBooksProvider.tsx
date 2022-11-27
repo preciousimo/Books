@@ -1,4 +1,5 @@
-import { createContext, useContext, ReactNode, useState } from "react"; 
+import { createContext, useContext, ReactNode, useState, useEffect } from "react"; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type MyBooksContextType = {
     onToggleSaved: (book: Book) => void;
@@ -19,6 +20,17 @@ type Props = {
 
 const MyBooksProvider = ({ children }: Props) => {
     const [savedBooks, setSavedBooks] = useState<Book[]>([]);
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        loadData();
+    }, []); // empty deps array to trigger the effect ONLY when mounting
+
+    useEffect(() => {
+        if (loaded) {
+          persistData();
+        }
+    }, [savedBooks]); // trigger the effect when savedBooks change
 
     const areBooksTheSame = (a: Book, b: Book) => {
         return JSON.stringify(a) === JSON.stringify(b);
@@ -38,6 +50,21 @@ const MyBooksProvider = ({ children }: Props) => {
           // add to saved
           setSavedBooks((books) => [book, ...books]);
         }
+    };
+
+    const persistData = async () => {
+        // Write data to the local storage
+        await AsyncStorage.setItem('booksData', JSON.stringify(savedBooks));
+    };
+
+    const loadData = async () => {
+        // Read data from the local storage
+        const dataString = await AsyncStorage.getItem('booksData');
+        if (dataString) {
+          const items = JSON.parse(dataString);
+          setSavedBooks(items);
+        }
+        setLoaded(true);
     };
 
     return (
