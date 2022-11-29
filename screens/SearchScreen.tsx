@@ -66,7 +66,7 @@ export default function SearchScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView edges={["top"]} style={styles.container}>
       <View style={styles.header}>
         <TextInput
           value={search}
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    backgroundColor: "white",
   },
   title: {
     fontSize: 20,
