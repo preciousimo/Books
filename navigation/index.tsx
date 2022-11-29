@@ -67,6 +67,7 @@ function BottomTabNavigator() {
         component={SearchScreen}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+          headerShown: false,
         }}
       />
       <BottomTab.Screen
