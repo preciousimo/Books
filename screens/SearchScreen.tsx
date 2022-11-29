@@ -39,7 +39,7 @@ const query = gql`
 `;
 
 
-export default function TabOneScreen() {
+export default function SearchScreen() {
   const [search, setSearch] = useState("");
   const [provider, setProvider] = useState<
     "googleBooksSearch" | "openLibrarySearch"
