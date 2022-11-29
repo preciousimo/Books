@@ -4,6 +4,7 @@ import { ActivityIndicator, StyleSheet, FlatList, TextInput, Button } from 'reac
 import { Text, View } from '../components/Themed';
 import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import BookItem from '../components/BookItem';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const query = gql`
@@ -65,7 +66,7 @@ export default function SearchScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TextInput
           value={search}
@@ -107,7 +108,7 @@ export default function SearchScreen() {
           />
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
